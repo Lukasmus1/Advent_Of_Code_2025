@@ -7,7 +7,12 @@ public class Day2 : IDay
     {
         return File.ReadAllText("Day2/Input.txt").Split(',');
     }
-    
+
+    public string GetDay()
+    {
+        return "2";
+    }
+
     public string SolvePartOne()
     { 
         string[] input = GetInput();

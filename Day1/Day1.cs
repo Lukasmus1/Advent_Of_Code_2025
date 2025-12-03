@@ -7,6 +7,11 @@ public class Day1 : IDay
         return File.ReadAllLines("Day1/input.txt");
     }
 
+    public string GetDay()
+    {
+        return "1";
+    }
+
     public string SolvePartOne()
     {
         string[] input = GetInput();

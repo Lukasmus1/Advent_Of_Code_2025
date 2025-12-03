@@ -8,8 +8,9 @@ internal abstract class MainClass
     {
         IDay[] days =
         [
-            new Day1.Day1(),
-            new Day2.Day2()
+            //new Day1.Day1(),
+            //new Day2.Day2(),
+            new Day3.Day3()
         ];
 
         PrintDayResults(days);
@@ -18,16 +19,16 @@ internal abstract class MainClass
     private static void PrintDayResults(IDay[] days)
     {
         var sw = new Stopwatch();
-        for (var i = 0; i < days.Length; i++)
+        foreach (var t in days)
         {
-            Console.WriteLine("Day " + (i + 1));
+            Console.WriteLine("Day " + t.GetDay());
             sw.Start();
-            Console.Write("Part One: " + days[i].SolvePartOne());
+            Console.Write("Part One: " + t.SolvePartOne());
             sw.Stop();
             Console.Write(" Time: " + sw.ElapsedMilliseconds / 1000f + "s\n");
             sw.Reset();
             sw.Start();
-            Console.Write("Part Two: " + days[i].SolvePartTwo());
+            Console.Write("Part Two: " + t.SolvePartTwo());
             sw.Stop();
             Console.Write(" Time: " + sw.ElapsedMilliseconds / 1000f + "s\n");
             sw.Reset();
