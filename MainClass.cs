@@ -19,7 +19,7 @@ internal abstract class MainClass
     private static void PrintDayResults(IDay[] days)
     {
         var sw = new Stopwatch();
-        foreach (var t in days)
+        foreach (IDay t in days)
         {
             Console.WriteLine("Day " + t.GetDay());
             sw.Start();

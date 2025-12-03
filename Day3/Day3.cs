@@ -1,5 +1,8 @@
-﻿namespace AOC25.Day3;
+﻿using System.Text;
 
+namespace AOC25.Day3;
+
+// I am actually quite proud of this one
 public class Day3 : IDay
 {
     private string[] GetInput()
@@ -11,35 +14,40 @@ public class Day3 : IDay
 
     public string SolvePartOne()
     {
-        string[] input = GetInput();
-
-        int res = 0;
-        
-        foreach (string s in input)
-        {
-            List<int> numbers = s.Select(c => int.Parse(c.ToString())).ToList();
-            var originalNumbers = new List<int>(numbers);
-            
-            int maxNum = numbers.Max();
-            int maxIndex = numbers.IndexOf(maxNum);
-            
-            numbers.RemoveRange(0, maxIndex + 1);
-            if (numbers.Count == 0)
-            {
-                originalNumbers.RemoveAt(maxIndex);
-                res += int.Parse($"{originalNumbers.Max()}{maxNum}");
-            }
-            else
-            {
-                res += int.Parse($"{maxNum}{numbers.Max()}");
-            }
-        }
-        
-        return res.ToString();
+        return Solve(true);
     }
 
     public string SolvePartTwo()
     {
-        return "";
+        return Solve(false);
+    }
+
+    private string Solve(bool partOne)
+    {
+        string[] input = GetInput();
+
+        long res = 0;
+
+        foreach (string s in input)
+        {
+            List<long> numbers = s.Select(c => long.Parse(c.ToString())).ToList();
+
+            StringBuilder sb = new();
+            
+            for (int i = partOne ? 1 : 11; i >= 0; i--)
+            {
+                List<long> debug = numbers.GetRange(0, numbers.Count - i);
+                
+                long maxNum = debug.Max(); 
+                sb.Append(maxNum);
+                
+                int maxNumInd = numbers.IndexOf(maxNum);
+                numbers.RemoveRange(0, maxNumInd + 1);
+            }
+            
+            res += long.Parse(sb.ToString());
+        }
+
+        return res.ToString();
     }
 }
