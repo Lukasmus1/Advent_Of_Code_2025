@@ -7,10 +7,7 @@ public class Day3 : IDay
         return File.ReadAllLines("Day3/Input.txt");
     }
 
-    public string GetDay()
-    {
-        return "3";
-    }
+    public string GetDay() => "3";
 
     public string SolvePartOne()
     {
@@ -21,7 +18,21 @@ public class Day3 : IDay
         foreach (string s in input)
         {
             List<int> numbers = s.Select(c => int.Parse(c.ToString())).ToList();
+            var originalNumbers = new List<int>(numbers);
             
+            int maxNum = numbers.Max();
+            int maxIndex = numbers.IndexOf(maxNum);
+            
+            numbers.RemoveRange(0, maxIndex + 1);
+            if (numbers.Count == 0)
+            {
+                originalNumbers.RemoveAt(maxIndex);
+                res += int.Parse($"{originalNumbers.Max()}{maxNum}");
+            }
+            else
+            {
+                res += int.Parse($"{maxNum}{numbers.Max()}");
+            }
         }
         
         return res.ToString();
