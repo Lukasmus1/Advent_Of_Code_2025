@@ -11,7 +11,8 @@ internal abstract class MainClass
             //new Day1.Day1(),
             //new Day2.Day2(),
             //new Day3.Day3(),
-            new Day4.Day4()
+            //new Day4.Day4(),
+            new Day5.Day5()
         ];
 
         PrintDayResults(days);
