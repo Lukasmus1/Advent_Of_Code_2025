@@ -10,10 +10,10 @@ public class Day5 : IDay
 
         List<string> ranged = lines.TakeWhile(x => x != "").ToList();
         List<string> ids = lines.Skip(ranged.Count + 1).ToList();
-        
+
         return (ranged, ids);
     }
-    
+
     public string SolvePartOne()
     {
         (List<string> ranged, List<string> ids) = GetInput();
@@ -21,7 +21,7 @@ public class Day5 : IDay
         Dictionary<long, long> ranges = new();
 
         int fresh = 0;
-        
+
         foreach (string s in ranged)
         {
             string[] split = s.Split('-');
@@ -51,7 +51,7 @@ public class Day5 : IDay
                 fresh++;
             }
         }
-        
+
         return fresh.ToString();
     }
 

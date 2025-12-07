@@ -12,7 +12,8 @@ internal abstract class MainClass
             //new Day2.Day2(),
             //new Day3.Day3(),
             //new Day4.Day4(),
-            new Day5.Day5()
+            //new Day5.Day5(),
+            new Day6.Day6()
         ];
 
         PrintDayResults(days);
@@ -27,12 +28,12 @@ internal abstract class MainClass
             sw.Start();
             Console.Write("Part One: " + t.SolvePartOne());
             sw.Stop();
-            Console.Write(" Time: " + sw.ElapsedMilliseconds / 1000f + "s\n");
+            Console.Write(" Time: " + sw.ElapsedMilliseconds * (decimal)0.001 + "s\n");
             sw.Reset();
             sw.Start();
             Console.Write("Part Two: " + t.SolvePartTwo());
             sw.Stop();
-            Console.Write(" Time: " + sw.ElapsedMilliseconds / 1000f + "s\n");
+            Console.Write(" Time: " + sw.ElapsedMilliseconds * (decimal)0.001 + "s\n");
             sw.Reset();
             Console.WriteLine("==============================");
         }
