@@ -13,11 +13,9 @@ public class Day6 : IDay
         return lines.Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList()).ToList();
     }
     
-    private List<List<string>> GetInputPartTwo()
+    private List<string> GetInputPartTwo()
     {
-        List<string> lines = File.ReadAllLines("Day6/input.txt").ToList();
-
-        return lines.Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList()).ToList();
+        return File.ReadAllLines("Day6/input.txt").ToList();
     }
     
     public string SolvePartOne()
@@ -48,45 +46,65 @@ public class Day6 : IDay
 
     public string SolvePartTwo()
     {
-        List<List<string>> input = GetInputPartOne();
+        List<string> input = GetInputPartTwo();
 
-        List<long> res = [];
-
-        StringBuilder sb = new();
+        List<long> nums = [];
+        long res = 0;
         
-        for (var x = 0; x < input[0].Count; x++)
+        StringBuilder sb = new();
+        char operation = '.';
+        for (var i = 0; i < input[0].Length; i++)
         {
-            List<string> nums = [];
-            nums.AddRange(input.Select(t => t[x]));
-
-            string largest = nums.MaxBy(s => s.Length)!;
-            string operation = nums[^1];
-            
-            List<long> numbers = [];
-            for (int i = 0; i < largest.Length; i++)
+            if (SplitCheck(input, i))
             {
-                for (int numIndex = 0; numIndex < nums.Count - 1; numIndex++)
+                res += operation switch
                 {
-                    if (nums[numIndex].Length - i - 1 < 0)
-                    {
-                        continue;
-                    }
+                    '+' => nums.Sum(),
+                    '*' => nums.Aggregate((a, b) => a * b),
+                    _ => 0
+                };
+                
+                nums.Clear();
+                continue;
+            }
 
-                    sb.Append(nums[numIndex][^(i + 1)]);
+            foreach (string t in input)
+            {
+                if (t[i] == '*')
+                {
+                    operation = '*';
+                    break;
+                }
+                if (t[i] == '+')
+                {
+                    operation = '+';
+                    break;
                 }
                 
-                numbers.Add(long.Parse(sb.ToString()));
-                sb.Clear();
+                sb.Append(t[i]);
             }
             
-            res.Add(operation switch 
-            {
-                "+" => numbers.Sum(),
-                "*" => numbers.Aggregate((a, b) => a * b),
-                _ => 0
-            });
+            nums.Add(long.Parse(sb.ToString()));
+            sb.Clear();
         }
+        
+        res += operation switch
+        {
+            '+' => nums.Sum(),
+            '*' => nums.Aggregate((a, b) => a * b),
+            _ => 0
+        };
 
-        return res.Sum().ToString();
+        return res.ToString();
+    }
+
+    private static bool SplitCheck(List<string> input, int index)
+    {
+        if (input.Any(t => t[index] != ' '))
+        {
+            return false;
+        }
+        
+        return true;
     }
 }
